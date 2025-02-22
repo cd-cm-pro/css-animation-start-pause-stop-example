@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animation Control Example</title>
+    <style>
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            animation: moveBox 5s linear infinite;
+        }
+
+        @keyframes moveBox {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(300px);
+            }
+        }
+
+        .paused {
+            animation-play-state: paused;
+        }
+
+        .stopped {
+            animation: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-box" id="box"></div>
+    <button onclick="startAnimation()">Start Animation</button>
+    <button onclick="pauseAnimation()">Pause Animation</button>
+    <button onclick="stopAnimation()">Stop Animation</button>
+
+    <script>
+        function startAnimation() {
+            const box = document.getElementById('box');
+            box.classList.remove('paused', 'stopped');
+            // Restart animation by removing and re-adding the animation class
+            void box.offsetWidth; // Trigger reflow
+            box.classList.add('animated-box');
+        }
+
+        function pauseAnimation() {
+            document.getElementById('box').classList.add('paused');
+        }
+
+        function stopAnimation() {
+            const box = document.getElementById('box');
+            box.classList.add('stopped');
+            // Reset the box's position
+            box.style.transform = 'translateX(0)';
+        }
+    </script>
+</body>
+</html>
